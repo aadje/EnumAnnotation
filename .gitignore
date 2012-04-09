@@ -1,0 +1,32 @@
+# VS.NET and ReSharper 
+obj
+bin
+*.csproj.user
+*ReSharper*
+*resharper*
+*.suo
+*.cache
+Thumbs.db
+ 
+# Other useful stuff
+*.bak
+*.cache
+*.log
+*.swp
+*.user
+_compareTemp
+_notes
+aspnet_client
+httpd.parse.errors
+ 
+# Office Temp Files
+~$*
+
+# build folder - for ILMerged output
+build
+build/*
+
+*.nupkg
+/PublishPackage/Content/*.*
+
+ 
