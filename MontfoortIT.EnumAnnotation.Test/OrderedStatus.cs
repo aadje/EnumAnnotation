@@ -6,15 +6,15 @@ using System.Text;
 
 namespace MontfoortIT.EnumAnnotation.Test
 {
-    public enum OrderedStatus
+    public enum SomeStatus
     {
-        [Display(Order=1)]
+        [Display(Name = "Fine Name", ShortName = "Fine ShortName", GroupName = "Fine GroupName", Description = "Fine Description", Order=1)]
         Fine = 1,
 
-        [Display(Order=3)]
+        [Display(Name = "Ok Name")]
         Ok = 2,
 
-        [Display(Order=2)]
+        [Display(Name = "Good Name")]
         Good = 3
     }
 }
