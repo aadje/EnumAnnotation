@@ -90,14 +90,6 @@ namespace $rootnamespace$.ComponentModel
         }
 
         /// <summary>
-        /// Enum value casted to string
-        /// </summary>
-        public override string ToString()
-        {
-            return Value.ToString();
-        }
-
-        /// <summary>
         /// Wrap an Enum in a EnumAnnotation for more conviently accessing the Annotations Attributes (only the Display Attribute is supported) 
         /// </summary>
         /// <param name="enumvalue">An Enum value of Type T</param>
@@ -117,6 +109,24 @@ namespace $rootnamespace$.ComponentModel
             var field = type.GetField(name);
 
             return field.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+        }
+
+        /// <summary>
+        /// Enum value casted to string
+        /// </summary>
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && Value.Equals(((EnumAnnotation<T>)obj).Value);
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
         }
 
         /// <summary>
@@ -145,7 +155,6 @@ namespace $rootnamespace$.ComponentModel
             return args
                 .Select(v => new EnumAnnotation<T>(v))
                 .Cast<IDisplayAnnotation>()
-                .OrderBy(a => a.Order)
                 .ToList();
         }
 

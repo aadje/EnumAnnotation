@@ -50,7 +50,7 @@ namespace MontfoortIT.EnumAnnotation.ComponentModel
         /// </summary>
         public string Description
         {
-            get { return Display == null || string.IsNullOrEmpty(Display.Description) ? ToString() : Display.Description; }
+            get { return Display == null || string.IsNullOrEmpty(Display.Description) ? string.Empty : Display.Description; }
         }
 
         /// <summary>
@@ -60,7 +60,9 @@ namespace MontfoortIT.EnumAnnotation.ComponentModel
         {
             get
             {
-                int? order = Display.GetOrder();
+                int? order = null;
+                if(Display != null)
+                    order = Display.GetOrder();
                 return Display == null || !order.HasValue ? int.MaxValue : order.Value;
             }
         }

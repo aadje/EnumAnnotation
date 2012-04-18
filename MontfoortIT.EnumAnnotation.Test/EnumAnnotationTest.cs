@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using MontfoortIT.EnumAnnotation.ComponentModel;
+using MontfoortIT.EnumAnnotation.Test.Data;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -71,9 +72,39 @@ namespace MontfoortIT.EnumAnnotation.Test
         {
             IList<IDisplayAnnotation> displayAnnotations = EnumAnnotation<OrderedStatus>.GetDisplays();
 
-            Assert.AreEqual(displayAnnotations[0].Value, OrderedStatus.Fine);
-            Assert.AreEqual(displayAnnotations[1].Value, OrderedStatus.Good);
-            Assert.AreEqual(displayAnnotations[2].Value, OrderedStatus.Ok);
+            Assert.AreEqual(OrderedStatus.Fine, displayAnnotations[0].Value);
+            Assert.AreEqual(OrderedStatus.Good, displayAnnotations[1].Value);
+            Assert.AreEqual(OrderedStatus.Ok, displayAnnotations[2].Value);
+        }
+
+        [Test]
+        public void EnumAnnotation_GetDisplays_Without_Annotations()
+        {
+            IList<IDisplayAnnotation> displayAnnotations = EnumAnnotation<NotAnnotatedStatus>.GetDisplays();
+
+            Assert.IsNotNull(displayAnnotations);
+
+            Assert.AreEqual(NotAnnotatedStatus.Fine, displayAnnotations[0].Value);
+            Assert.AreEqual(NotAnnotatedStatus.Ok, displayAnnotations[1].Value);
+            Assert.AreEqual(NotAnnotatedStatus.Good, displayAnnotations[2].Value);
+        }
+        
+        [Test]
+        public void EnumAnnotation_GetDisplays_Without_Annotations_Returns_Defaults()
+        {
+            IList<IDisplayAnnotation> displayAnnotations = EnumAnnotation<NotAnnotatedStatus>.GetDisplays();
+
+            IDisplayAnnotation displayAnnotation = displayAnnotations[0];
+
+            Assert.AreEqual(NotAnnotatedStatus.Fine, displayAnnotation.Value);
+            Assert.AreEqual(1, displayAnnotation.UnderlyingValue);
+
+            Assert.AreEqual("Fine", displayAnnotation.Name);
+            Assert.AreEqual("Fine", displayAnnotation.ShortName);
+            Assert.AreEqual("Fine", displayAnnotation.ToString());
+
+            Assert.AreEqual(string.Empty, displayAnnotation.Description);
+            Assert.AreEqual(string.Empty, displayAnnotation.GroupName);
         }
     }
 }

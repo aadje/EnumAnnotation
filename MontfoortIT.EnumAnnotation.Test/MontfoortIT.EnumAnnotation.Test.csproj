@@ -49,9 +49,10 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OrderedStatus.cs" />
+    <Compile Include="Data\NotAnnotatedStatus.cs" />
+    <Compile Include="Data\OrderedStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SomeStatus.cs" />
+    <Compile Include="Data\SomeStatus.cs" />
     <Compile Include="EnumAnnotationTest.cs" />
   </ItemGroup>
   <ItemGroup>
