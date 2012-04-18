@@ -27,6 +27,6 @@ build
 build/*
 
 *.nupkg
-PublishPackage/Content/*.*
+PublishPackage
 
  
