@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using ComponentModel.EnumAnnotations.Test.Data;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
@@ -13,7 +11,7 @@ namespace ComponentModel.EnumAnnotations.Test
     public class EnumAnnotationTest
     {
         [Test]
-        public void EnumAnnotation_Construct()
+        public void EnumAnnotationConstruct()
         {
             EnumAnnotation<SomeStatus> enumAnnotation = new EnumAnnotation<SomeStatus>(SomeStatus.Fine);
 
@@ -27,7 +25,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void EnumAnnotation_Equals()
+        public void EnumAnnotationEquals()
         {
             IDisplayAnnotation annotation = new EnumAnnotation<SomeStatus>(SomeStatus.Good);
             IDisplayAnnotation annotation2 = new EnumAnnotation<SomeStatus>(SomeStatus.Good);
@@ -46,7 +44,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void GetDisplays_By_Params_Ignores_Ordering()
+        public void GetDisplaysByParamsIgnoresOrdering()
         {
             List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays(SomeStatus.Good, SomeStatus.Ok);
             List<IDisplayAnnotation> annotations = new List<IDisplayAnnotation> {new EnumAnnotation<SomeStatus>(SomeStatus.Good), new EnumAnnotation<SomeStatus>(SomeStatus.Ok)};
@@ -56,7 +54,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void GetDisplays_Filtered()
+        public void GetDisplaysFiltered()
         {
             List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<SomeStatus>(x => x.EnumValue != SomeStatus.Good);
 
@@ -66,7 +64,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void GetDisplays_AreOrdered()
+        public void GetDisplaysAreOrdered()
         {
             List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<OrderedStatus>();
 
@@ -76,7 +74,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void GetDisplays_Without_Annotations()
+        public void GetDisplaysWithoutAnnotations()
         {
             List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<NotAnnotatedStatus>();
 
@@ -88,7 +86,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
         
         [Test]
-        public void GetDisplays_Without_Annotations_Returns_Defaults()
+        public void GetDisplaysWithoutAnnotationsReturnsDefaults()
         {
             List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<NotAnnotatedStatus>();
 
@@ -106,7 +104,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void GetEnums_Returns_Enums()
+        public void GetEnumsReturnsEnums()
         {
             IEnumerable<NotAnnotatedStatus> statusses = EnumAnnotation.GetEnums<NotAnnotatedStatus>();
 
@@ -115,7 +113,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void GetDisplay_Returns_Localized_Values()
+        public void GetDisplayReturnsLocalizedValues()
         {
             IDisplayAnnotation fine = LocalizedStatus.Fine.GetDisplay();
             Assert.AreEqual(LocalizedStatus.Fine, fine.Value);
@@ -126,7 +124,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void Extension_GetDisplay()
+        public void ExtensionGetDisplay()
         {
             IDisplayAnnotation fine = SomeStatus.Fine.GetDisplay();
             Assert.AreEqual(SomeStatus.Fine, fine.Value);
@@ -134,7 +132,7 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void Extension_GetName()
+        public void ExtensionGetName()
         {
             Assert.AreEqual("Fine Name", SomeStatus.Fine.GetName());
         }

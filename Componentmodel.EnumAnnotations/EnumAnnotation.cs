@@ -188,9 +188,9 @@ namespace ComponentModel.EnumAnnotations
         /// <summary>
         /// Get a list of Enums
         /// </summary>
-        public static IEnumerable<T> GetEnums<T>() where T : struct 
+        public static List<T> GetEnums<T>() where T : struct 
         {
-            return Enum.GetValues(typeof(T)).Cast<T>();
+            return Enum.GetValues(typeof(T)).Cast<T>().ToList();
         }
 
         /// <summary>
