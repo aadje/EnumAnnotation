@@ -25,7 +25,7 @@ namespace ComponentModel.EnumAnnotations
         }
 
         /// <summary>
-        /// DisplayAttribute.Name annotation
+        /// DisplayAttribute.Name annotation. Returns Enum.ToString() if not specified.
         /// </summary>
         public string Name
         {
@@ -36,7 +36,7 @@ namespace ComponentModel.EnumAnnotations
         }
 
         /// <summary>
-        /// DisplayAttribute.ShortName annotation
+        /// DisplayAttribute.ShortName annotation. Returns Enum.ToString() if not specified.
         /// </summary>
         public string ShortName
         {
@@ -44,7 +44,7 @@ namespace ComponentModel.EnumAnnotations
         }
 
         /// <summary>
-        /// DisplayAttribute.ShortName annotation
+        /// DisplayAttribute.ShortName annotation. Returns an empty string if not specified.
         /// </summary>
         public string GroupName
         {
@@ -52,7 +52,7 @@ namespace ComponentModel.EnumAnnotations
         }
 
         /// <summary>
-        /// DisplayAttribute.Description annotation
+        /// DisplayAttribute.Description annotation. Returns an empty string if not specified.
         /// </summary>
         public string Description
         {
@@ -60,7 +60,7 @@ namespace ComponentModel.EnumAnnotations
         }
 
         /// <summary>
-        /// DisplayAttribute.Order annotation
+        /// DisplayAttribute.Order annotation. Returns 0 if not specified.
         /// </summary>
         public int Order
         {
@@ -69,7 +69,7 @@ namespace ComponentModel.EnumAnnotations
                 int? order = null;
                 if(Display != null)
                     order = Display.GetOrder();
-                return Display == null || !order.HasValue ? int.MaxValue : order.Value;
+                return Display == null || !order.HasValue ? 0 : order.Value;
             }
         }
 
