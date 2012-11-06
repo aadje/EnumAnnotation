@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MontfoortIT.EnumAnnotation.Test.Data
+namespace ComponentModel.EnumAnnotations.Test.Data
 {
     public enum SomeStatus
     {

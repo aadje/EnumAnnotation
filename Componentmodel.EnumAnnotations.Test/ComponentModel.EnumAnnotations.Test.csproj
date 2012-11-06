@@ -9,8 +9,8 @@
     <ProjectGuid>{240E610F-4204-4679-9D8B-39F1386CD5B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MontfoortIT.EnumAnnotation.Test</RootNamespace>
-    <AssemblyName>MontfoortIT.EnumAnnotation.Test</AssemblyName>
+    <RootNamespace>ComponentModel.EnumAnnotations.Test</RootNamespace>
+    <AssemblyName>ComponentModel.EnumAnnotations.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -52,11 +52,17 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\NotAnnotatedStatus.cs" />
-    <Compile Include="Data\OrderedStatus.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\SomeStatus.cs" />
+    <Compile Include="Data\NotAnnotatedStatus.cs" />
+    <Compile Include="Data\LocalizedStatus.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Data\OrderedStatus.cs" />
     <Compile Include="EnumAnnotationTest.cs" />
+    <Compile Include="Resources\Enums.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Enums.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -64,10 +70,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EnumAnnotation\EnumAnnotation.csproj">
+    <ProjectReference Include="..\ComponentModel.EnumAnnotations\ComponentModel.EnumAnnotations.csproj">
       <Project>{323ff1fb-efd1-4033-92c5-66fb4831c484}</Project>
-      <Name>EnumAnnotation</Name>
+      <Name>ComponentModel.EnumAnnotations</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Enums.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Enums.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

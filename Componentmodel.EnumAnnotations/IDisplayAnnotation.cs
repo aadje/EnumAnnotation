@@ -1,4 +1,4 @@
-﻿namespace MontfoortIT.EnumAnnotation.ComponentModel
+﻿namespace ComponentModel.EnumAnnotations
 {
     /// <summary>
     /// Wrapper around the System.ComponentModel.DataAnnotations.DisplayAttribute and Enum Properties

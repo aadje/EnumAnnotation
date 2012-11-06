@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using MontfoortIT.EnumAnnotation.ComponentModel;
-using MontfoortIT.EnumAnnotation.Test.Data;
+using System.ComponentModel.DataAnnotations;
+using ComponentModel.EnumAnnotations.Test.Data;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
-namespace EnumAnnotation.Test
+namespace ComponentModel.EnumAnnotations.Test
 {
     [TestFixture]
     public class EnumAnnotationTest
@@ -32,7 +32,6 @@ namespace EnumAnnotation.Test
             IList<IDisplayAnnotation> displayAnnotations = EnumAnnotation<SomeStatus>.GetDisplays();
             var enumNames = Enum.GetNames(typeof (SomeStatus)).AsEnumerable();
             var enumValues = Enum.GetValues(typeof (SomeStatus)).Cast<int>();
-
             Assert.IsNotNull(displayAnnotations);
             Assert.IsTrue(enumNames.SequenceEqual(displayAnnotations.Select(x => x.ToString())));
             Assert.IsTrue(enumValues.SequenceEqual(displayAnnotations.Select(x => x.UnderlyingValue)));
@@ -113,6 +112,17 @@ namespace EnumAnnotation.Test
 
             Assert.AreEqual(NotAnnotatedStatus.Fine, statusses.First());
             Assert.AreEqual(3, statusses.Count());
+        }
+
+        [Test]
+        public void EnumAnnotation_GetDisplay_Returns_Localized_Values()
+        {
+            IDisplayAnnotation fine = EnumAnnotation<LocalizedStatus>.GetDisplay(LocalizedStatus.Fine);
+            Assert.AreEqual(LocalizedStatus.Fine, fine.Value);
+            Assert.AreEqual("LocalizedStatus Fine Name", fine.Name);
+            Assert.AreEqual("LocalizedStatus Fine ShortName", fine.ShortName);
+            Assert.AreEqual("LocalizedStatus Fine Description", fine.Description);
+            Assert.AreEqual("LocalizedStatus Fine GroupName", fine.GroupName);
         }
     }
 }

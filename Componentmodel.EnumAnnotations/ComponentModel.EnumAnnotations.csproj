@@ -8,8 +8,8 @@
     <ProjectGuid>{323FF1FB-EFD1-4033-92C5-66FB4831C484}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EnumAnnotation</RootNamespace>
-    <AssemblyName>EnumAnnotation</AssemblyName>
+    <RootNamespace>ComponentModel.EnumAnnotations</RootNamespace>
+    <AssemblyName>ComponentModel.EnumAnnotations</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile42</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -36,8 +36,8 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentModel\EnumAnnotation.cs" />
-    <Compile Include="ComponentModel\IDisplayAnnotation.cs" />
+    <Compile Include="EnumAnnotation.cs" />
+    <Compile Include="IDisplayAnnotation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

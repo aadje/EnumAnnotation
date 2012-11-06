@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace MontfoortIT.EnumAnnotation.ComponentModel
+namespace ComponentModel.EnumAnnotations
 {
     /// <summary>
     /// Enum wrapper for more conviently accessing the Data Annotations Attributes (only the Display Attribute is supported) 
@@ -11,8 +11,11 @@ namespace MontfoortIT.EnumAnnotation.ComponentModel
     public class EnumAnnotation<T> : IDisplayAnnotation where T : struct
     {
         private readonly T _enumValue;
-
         private DisplayAttribute _display;
+
+        /// <summary>
+        /// Cached and Lazy loaded DisplayAttribute
+        /// </summary>
         private DisplayAttribute Display
         {
             get
@@ -26,7 +29,10 @@ namespace MontfoortIT.EnumAnnotation.ComponentModel
         /// </summary>
         public string Name
         {
-            get { return Display == null || string.IsNullOrEmpty(Display.Name) ? ToString() : Display.Name; }
+            get
+            {
+                return Display == null || string.IsNullOrEmpty(Display.Name) ? ToString() : Display.GetName();
+            }
         }
 
         /// <summary>
@@ -34,7 +40,7 @@ namespace MontfoortIT.EnumAnnotation.ComponentModel
         /// </summary>
         public string ShortName
         {
-            get { return Display == null || string.IsNullOrEmpty(Display.ShortName) ? ToString() : Display.ShortName; }
+            get { return Display == null || string.IsNullOrEmpty(Display.ShortName) ? ToString() : Display.GetShortName(); }
         }
 
         /// <summary>
@@ -42,7 +48,7 @@ namespace MontfoortIT.EnumAnnotation.ComponentModel
         /// </summary>
         public string GroupName
         {
-            get { return Display == null ? string.Empty : Display.GroupName; }
+            get { return Display == null ? string.Empty : Display.GetGroupName(); }
         }
 
         /// <summary>
@@ -50,7 +56,7 @@ namespace MontfoortIT.EnumAnnotation.ComponentModel
         /// </summary>
         public string Description
         {
-            get { return Display == null || string.IsNullOrEmpty(Display.Description) ? string.Empty : Display.Description; }
+            get { return Display == null || string.IsNullOrEmpty(Display.Description) ? string.Empty : Display.GetDescription(); }
         }
 
         /// <summary>
@@ -158,6 +164,17 @@ namespace MontfoortIT.EnumAnnotation.ComponentModel
                 .Select(v => new EnumAnnotation<T>(v))
                 .Cast<IDisplayAnnotation>()
                 .ToList();
+        }
+
+
+        /// <summary>
+        /// Wrap a single enum value in an EnumAnnotation
+        /// </summary>
+        /// <param name="value">Enum value of Type of T</param>
+        /// <returns>IDisplayAnnotation for Enum Type of T</returns>
+        public static IDisplayAnnotation GetDisplay(T value)
+        {
+            return new EnumAnnotation<T>(value);
         }
 
         /// <summary>
