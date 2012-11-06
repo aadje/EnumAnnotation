@@ -27,17 +27,6 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void EnumAnnotation_GetDisplays()
-        {
-            IList<IDisplayAnnotation> displayAnnotations = EnumAnnotation<SomeStatus>.GetDisplays();
-            var enumNames = Enum.GetNames(typeof (SomeStatus)).AsEnumerable();
-            var enumValues = Enum.GetValues(typeof (SomeStatus)).Cast<int>();
-            Assert.IsNotNull(displayAnnotations);
-            Assert.IsTrue(enumNames.SequenceEqual(displayAnnotations.Select(x => x.ToString())));
-            Assert.IsTrue(enumValues.SequenceEqual(displayAnnotations.Select(x => x.UnderlyingValue)));
-        }
-
-        [Test]
         public void EnumAnnotation_Equals()
         {
             IDisplayAnnotation annotation = new EnumAnnotation<SomeStatus>(SomeStatus.Good);
@@ -46,9 +35,20 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void EnumAnnotation_GetDisplays_By_Params_Ignores_Ordering()
+        public void GetDisplays()
         {
-            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation<SomeStatus>.GetDisplays(SomeStatus.Good, SomeStatus.Ok);
+            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<SomeStatus>();
+            var enumNames = Enum.GetNames(typeof (SomeStatus)).AsEnumerable();
+            var enumValues = Enum.GetValues(typeof (SomeStatus)).Cast<int>();
+            Assert.IsNotNull(displayAnnotations);
+            Assert.IsTrue(enumNames.SequenceEqual(displayAnnotations.Select(x => x.ToString())));
+            Assert.IsTrue(enumValues.SequenceEqual(displayAnnotations.Select(x => x.UnderlyingValue)));
+        }
+
+        [Test]
+        public void GetDisplays_By_Params_Ignores_Ordering()
+        {
+            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays(SomeStatus.Good, SomeStatus.Ok);
             List<IDisplayAnnotation> annotations = new List<IDisplayAnnotation> {new EnumAnnotation<SomeStatus>(SomeStatus.Good), new EnumAnnotation<SomeStatus>(SomeStatus.Ok)};
 
             for (int i = 0; i < displayAnnotations.Count; i++)
@@ -56,9 +56,9 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void EnumAnnotation_GetDisplays_Filtered()
+        public void GetDisplays_Filtered()
         {
-            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation<SomeStatus>.GetDisplays(x => x.EnumValue != SomeStatus.Good);
+            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<SomeStatus>(x => x.EnumValue != SomeStatus.Good);
 
             Assert.IsFalse(displayAnnotations.Any(x => (SomeStatus)x.Value == SomeStatus.Good));
             Assert.IsTrue(displayAnnotations.Any(x => (SomeStatus)x.Value == SomeStatus.Fine));
@@ -66,9 +66,9 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void EnumAnnotation_GetDisplays_AreOrdered()
+        public void GetDisplays_AreOrdered()
         {
-            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation<OrderedStatus>.GetDisplays();
+            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<OrderedStatus>();
 
             Assert.AreEqual(OrderedStatus.Fine, displayAnnotations[0].Value);
             Assert.AreEqual(OrderedStatus.Good, displayAnnotations[1].Value);
@@ -76,9 +76,9 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void EnumAnnotation_GetDisplays_Without_Annotations()
+        public void GetDisplays_Without_Annotations()
         {
-            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation<NotAnnotatedStatus>.GetDisplays();
+            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<NotAnnotatedStatus>();
 
             Assert.IsNotNull(displayAnnotations);
 
@@ -88,9 +88,9 @@ namespace ComponentModel.EnumAnnotations.Test
         }
         
         [Test]
-        public void EnumAnnotation_GetDisplays_Without_Annotations_Returns_Defaults()
+        public void GetDisplays_Without_Annotations_Returns_Defaults()
         {
-            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation<NotAnnotatedStatus>.GetDisplays();
+            List<IDisplayAnnotation> displayAnnotations = EnumAnnotation.GetDisplays<NotAnnotatedStatus>();
 
             IDisplayAnnotation displayAnnotation = displayAnnotations[0];
 
@@ -106,23 +106,37 @@ namespace ComponentModel.EnumAnnotations.Test
         }
 
         [Test]
-        public void EnumAnnotation_GetEnums_Returns_Enums()
+        public void GetEnums_Returns_Enums()
         {
-            IEnumerable<NotAnnotatedStatus> statusses = EnumAnnotation<NotAnnotatedStatus>.GetEnums();
+            IEnumerable<NotAnnotatedStatus> statusses = EnumAnnotation.GetEnums<NotAnnotatedStatus>();
 
             Assert.AreEqual(NotAnnotatedStatus.Fine, statusses.First());
             Assert.AreEqual(3, statusses.Count());
         }
 
         [Test]
-        public void EnumAnnotation_GetDisplay_Returns_Localized_Values()
+        public void GetDisplay_Returns_Localized_Values()
         {
-            IDisplayAnnotation fine = EnumAnnotation<LocalizedStatus>.GetDisplay(LocalizedStatus.Fine);
+            IDisplayAnnotation fine = LocalizedStatus.Fine.GetDisplay();
             Assert.AreEqual(LocalizedStatus.Fine, fine.Value);
             Assert.AreEqual("LocalizedStatus Fine Name", fine.Name);
             Assert.AreEqual("LocalizedStatus Fine ShortName", fine.ShortName);
             Assert.AreEqual("LocalizedStatus Fine Description", fine.Description);
             Assert.AreEqual("LocalizedStatus Fine GroupName", fine.GroupName);
+        }
+
+        [Test]
+        public void Extension_GetDisplay()
+        {
+            IDisplayAnnotation fine = SomeStatus.Fine.GetDisplay();
+            Assert.AreEqual(SomeStatus.Fine, fine.Value);
+            Assert.AreEqual("Fine Name", fine.Name);
+        }
+
+        [Test]
+        public void Extension_GetName()
+        {
+            Assert.AreEqual("Fine Name", SomeStatus.Fine.GetName());
         }
     }
 }

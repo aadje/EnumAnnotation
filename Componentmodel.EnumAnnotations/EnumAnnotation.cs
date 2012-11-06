@@ -136,13 +136,19 @@ namespace ComponentModel.EnumAnnotations
         {
             return Value.GetHashCode();
         }
+    }
 
+    /// <summary>
+    /// Static methods for getting EnumAnnotations
+    /// </summary>
+    public static class EnumAnnotation
+    {
         /// <summary>
         /// Get a Sorted list of all the Display Attribute Annotations for the values in Enum Type of T. Usefull for datasources in databound controls. 
         /// </summary>
         /// <param name="predicate">Optional filter expression parameter for removing values</param>
         /// <returns>A sorted list of EnumAnnotations for Enum Type of T </returns>
-        public static List<IDisplayAnnotation> GetDisplays(Func<EnumAnnotation<T>, bool> predicate = null)
+        public static List<IDisplayAnnotation> GetDisplays<T>(Func<EnumAnnotation<T>, bool> predicate = null) where T : struct
         {
             return Enum.GetValues(typeof(T))
                 .Cast<T>()
@@ -158,7 +164,7 @@ namespace ComponentModel.EnumAnnotations
         /// </summary>
         /// <returns>A sorted list of EnumAnnotations for Enum Type of T </returns>
         /// <param name="args">Enum Type of T values</param>
-        public static List<IDisplayAnnotation> GetDisplays(params T[] args)
+        public static List<IDisplayAnnotation> GetDisplays<T>(params T[] args) where T : struct 
         {
             return args
                 .Select(v => new EnumAnnotation<T>(v))
@@ -166,23 +172,12 @@ namespace ComponentModel.EnumAnnotations
                 .ToList();
         }
 
-
-        /// <summary>
-        /// Wrap a single enum value in an EnumAnnotation
-        /// </summary>
-        /// <param name="value">Enum value of Type of T</param>
-        /// <returns>IDisplayAnnotation for Enum Type of T</returns>
-        public static IDisplayAnnotation GetDisplay(T value)
-        {
-            return new EnumAnnotation<T>(value);
-        }
-
         /// <summary>
         /// Try find a single Enum value wrapped in an EnumAnnotation by its Display attribute fields with a filter expression for Enum Type of T
         /// </summary>
         /// <param name="predicate">filter expression</param>
         /// <returns>EnumAnnotations for Enum Type of T or Null</returns>
-        public static IDisplayAnnotation FindDisplay(Func<EnumAnnotation<T>, bool> predicate)
+        public static IDisplayAnnotation FindDisplay<T>(Func<EnumAnnotation<T>, bool> predicate) where T : struct 
         {
             return Enum.GetValues(typeof(T))
                 .Cast<T>()
@@ -193,9 +188,29 @@ namespace ComponentModel.EnumAnnotations
         /// <summary>
         /// Get a list of Enums
         /// </summary>
-        public static IEnumerable<T> GetEnums()
+        public static IEnumerable<T> GetEnums<T>() where T : struct 
         {
             return Enum.GetValues(typeof(T)).Cast<T>();
+        }
+
+        /// <summary>
+        /// Extension method which wraps a single enum value in an EnumAnnotation
+        /// </summary>
+        /// <param name="value">Enum value of Type of T</param>
+        /// <returns>IDisplayAnnotation for Enum Type of T</returns>
+        public static IDisplayAnnotation GetDisplay<T>(this T value) where T : struct
+        {
+            return new EnumAnnotation<T>(value);
+        }
+
+        /// <summary>
+        /// Extension method which returns the DisplayAttributes Name value
+        /// </summary>
+        /// <param name="value">Enum value of Type of T</param>
+        /// <returns>IDisplayAnnotation for Enum Type of T</returns>
+        public static string GetName<T>(this T value) where T : struct
+        {
+            return GetDisplay(value).Name;
         }
     }
 }    
