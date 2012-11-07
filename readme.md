@@ -3,7 +3,7 @@ EnumAnnotation DisplayAttribute
 Enum wrapper for more conviently accessing the Data Annotations Attributes on Enums
 
 1. Use by copy pasting [EnumAnnotation.cs](https://raw.github.com/aadje/EnumAnnotation/master/EnumAnnotations/EnumAnnotation.cs) into your project, and change how you like
-2. Or install using [Nuget](https://nuget.org/packages/EnumAnnotation) ```Install-Package EnumAnnotation```  
+2. Or install using Nuget [```Install-Package EnumAnnotation```](https://nuget.org/packages/EnumAnnotation)   
 
 * Use the [```System.ComponentModel.DataAnnotations.DisplayAnnotation```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.aspx) to add friendly names to your [Enum](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/SomeStatus.cs)
 * Generate Lists with enum values and names for controls in your user interface, using ```EnumAnnotation.GetDisplays<SomeStatus>();```
