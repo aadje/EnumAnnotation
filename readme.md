@@ -6,7 +6,7 @@ Enum wrapper for more conviently accessing the Data Annotations Attributes on En
 2. Or install using [Nuget](https://nuget.org/packages/EnumAnnotation) ```Install-Package EnumAnnotation```  
 
 * Use the [```System.ComponentModel.DataAnnotations.DisplayAnnotation```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.aspx) to add friendly names to your [Enum](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/SomeStatus.cs)
-* Generate Lists with enum values and names for your user interface, using ```EnumAnnotation.GetDisplays<SomeStatus>();```
+* Generate Lists with enum values and names for controls in your user interface, using ```EnumAnnotation.GetDisplays<SomeStatus>();```
 * Add multiple names to your Enums using the DisplayAnnotations Name, ShortName, Desciption and GroupName properties
 * Supports the DisplayAnnotation.ResourceType to add localization to the Name, ShortName, Desciption and GroupName properties. See [example](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/LocalizedStatus.cs) and [tests](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/EnumAnnotationTest.cs)
 * Extension method to easy access an DisplayAttribute on a single enum value with ```SomeStatus.Fine.GetDisplay()``` Or access the Name value directly, using ```SomeStatus.Fine.GetName()```
