@@ -10,6 +10,6 @@ Enum wrapper for more conviently accessing the Data Annotations Attributes on En
 * Add multiple names to your Enums using the DisplayAnnotations Name, ShortName, Desciption and GroupName properties
 * Supports the DisplayAnnotation.ResourceType to add localization to the Name, ShortName, Desciption and GroupName properties. See [example](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/LocalizedStatus.cs) and [tests](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/EnumAnnotationTest.cs)
 * Extension method to easy access a DisplayAttribute on a single enum value with ```SomeStatus.Fine.GetDisplay()``` Or access the Name value directly, using ```SomeStatus.Fine.GetName()```
-* Reorder your Enum using the [```DisplayAnnotion.Order```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.order.aspx) property, without changing the Enums Underying type
+* Reorder your Enum using the [```DisplayAnnotion.Order```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.order.aspx) property, without changing the Enums Underying value
 * [```IDisplayAnnotation```](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations/EnumAnnotation.cs) interface to hide the ugly generic type and implement in UI controls 
 * [Portable libary](http://msdn.microsoft.com/en-us/library/gg597391.aspx) that supports .Net 4.03, Silverlight 5 and Windows 8 and higher
