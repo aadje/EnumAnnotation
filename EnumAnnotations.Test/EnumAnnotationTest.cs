@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using ComponentModel.EnumAnnotations.Test.Data;
+using EnumAnnotations.Test.Data;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
-namespace ComponentModel.EnumAnnotations.Test
+namespace EnumAnnotations.Test
 {
     [TestFixture]
     public class EnumAnnotationTest

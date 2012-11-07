@@ -1,3 +1,0 @@
-you can delete this file.
-
-This file was added for Nuget to work properly. Nuget packages don't work with powershell scripts only, it needs a content file or dll. Otherwist the package.config won't get updated

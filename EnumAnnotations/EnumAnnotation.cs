@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace ComponentModel.EnumAnnotations
+namespace EnumAnnotations
 {
     /// <summary>
     /// Enum wrapper for more conviently accessing the Data Annotations Attributes (only the Display Attribute is supported) 

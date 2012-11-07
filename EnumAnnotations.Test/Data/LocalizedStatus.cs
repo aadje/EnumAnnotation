@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ComponentModel.EnumAnnotations.Test.Data
+namespace EnumAnnotations.Test.Data
 {
     public enum LocalizedStatus
     {

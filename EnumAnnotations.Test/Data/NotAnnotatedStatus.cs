@@ -1,4 +1,4 @@
-﻿namespace ComponentModel.EnumAnnotations.Test.Data
+﻿namespace EnumAnnotations.Test.Data
 {
     public enum NotAnnotatedStatus
     {

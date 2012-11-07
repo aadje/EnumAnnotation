@@ -9,8 +9,8 @@
     <ProjectGuid>{240E610F-4204-4679-9D8B-39F1386CD5B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ComponentModel.EnumAnnotations.Test</RootNamespace>
-    <AssemblyName>ComponentModel.EnumAnnotations.Test</AssemblyName>
+    <RootNamespace>EnumAnnotations.Test</RootNamespace>
+    <AssemblyName>EnumAnnotations.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -70,9 +70,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ComponentModel.EnumAnnotations\ComponentModel.EnumAnnotations.csproj">
+    <ProjectReference Include="..\EnumAnnotations\EnumAnnotations.csproj">
       <Project>{323ff1fb-efd1-4033-92c5-66fb4831c484}</Project>
-      <Name>ComponentModel.EnumAnnotations</Name>
+      <Name>EnumAnnotations</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

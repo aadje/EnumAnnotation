@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentModel.EnumAnnotations.Test", "ComponentModel.EnumAnnotations.Test\ComponentModel.EnumAnnotations.Test.csproj", "{240E610F-4204-4679-9D8B-39F1386CD5B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumAnnotations.Test", "EnumAnnotations.Test\EnumAnnotations.Test.csproj", "{240E610F-4204-4679-9D8B-39F1386CD5B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29B7A9AE-8ACC-4DDE-AE07-949C69E25B51}"
 EndProject
@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D996AB
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentModel.EnumAnnotations", "ComponentModel.EnumAnnotations\ComponentModel.EnumAnnotations.csproj", "{323FF1FB-EFD1-4033-92C5-66FB4831C484}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumAnnotations", "EnumAnnotations\EnumAnnotations.csproj", "{323FF1FB-EFD1-4033-92C5-66FB4831C484}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

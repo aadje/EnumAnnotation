@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ComponentModel.EnumAnnotations.Test.Resources {
+namespace EnumAnnotations.Test.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ComponentModel.EnumAnnotations.Test.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ComponentModel.EnumAnnotations.Test.Resources.Enums", typeof(Enums).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EnumAnnotations.Test.Resources.Enums", typeof(Enums).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
