@@ -5,7 +5,7 @@ Enum wrapper for more conviently accessing the Data Annotations Attributes on En
 1. Use by copy pasting [EnumAnnotation.cs](https://raw.github.com/aadje/EnumAnnotation/master/EnumAnnotations/EnumAnnotation.cs) into your project, and change how you like
 2. Or install using Nuget [```Install-Package EnumAnnotation```](https://nuget.org/packages/EnumAnnotation)   
 
-* Use the [```System.ComponentModel.DataAnnotations.DisplayAnnotation```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.aspx) to add friendly names to your [Enum](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/SomeStatus.cs)
+* Use the standard in .net 4 added [```System.ComponentModel.DataAnnotations.DisplayAnnotation```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.aspx) to add friendly names to your [Enum](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/SomeStatus.cs)
 * Generate Lists with enum values and names for controls in your user interface, using ```EnumAnnotation.GetDisplays<SomeStatus>();```
 * Add multiple names to your Enums using the DisplayAnnotations Name, ShortName, Desciption and GroupName properties
 * Supports the DisplayAnnotation.ResourceType to add localization to the Name, ShortName, Desciption and GroupName properties using standard [resx](https://github.com/aadje/EnumAnnotation/tree/master/EnumAnnotations.Test/Resources) files. See [example](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/LocalizedStatus.cs) and [tests](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/EnumAnnotationTest.cs)
