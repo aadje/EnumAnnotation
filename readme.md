@@ -13,4 +13,4 @@ Filter these Lists by supplying the enum values explicitly ```EnumAnnotation.Get
 * Extension method to easy access a DisplayAttribute on a single enum value, with for example ```SomeStatus.Fine.GetDisplay();```, or access the Name value directly, using ```SomeStatus.Fine.GetName();```
 * Reorder your Enum using the [```DisplayAnnotion.Order```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.order.aspx) property, without changing the Enums Underying value
 * [```IDisplayAnnotation```](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations/EnumAnnotation.cs) interface to hide the ugly generic type and implement in UI controls 
-* [Portable libary](http://msdn.microsoft.com/en-us/library/gg597391.aspx) that supports .Net 4.03, Silverlight 5 and Windows 8 and higher. (Portable libraries are supported in Nuget 2.1 and up)
+* [Portable libary](http://msdn.microsoft.com/en-us/library/gg597391.aspx) that supports .Net 4.03, Silverlight 5 and Windows 8 and higher. Portable libraries are supported in Nuget 2.1 and up
