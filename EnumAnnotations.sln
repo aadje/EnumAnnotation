@@ -5,11 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumAnnotations.Test", "Enu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29B7A9AE-8ACC-4DDE-AE07-949C69E25B51}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D996ABC4-0555-4A8B-9D93-BAD100F369D0}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumAnnotations", "EnumAnnotations\EnumAnnotations.csproj", "{323FF1FB-EFD1-4033-92C5-66FB4831C484}"
 EndProject
 Global
