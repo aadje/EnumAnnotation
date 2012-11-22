@@ -8,9 +8,9 @@ namespace EnumAnnotations
     /// <summary>
     /// Enum wrapper for more conviently accessing the Data Annotations Attributes (only the Display Attribute is supported) 
     /// </summary>
-    public class EnumAnnotation<T> : IDisplayAnnotation where T : struct
+    public class EnumAnnotation
     {
-        private readonly T _enumValue;
+        private readonly Enum _enumValue;
         private DisplayAttribute _display;
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace EnumAnnotations
         /// </summary>
         public string GroupName
         {
-            get { return Display == null ? string.Empty : Display.GetGroupName(); }
+            get { return Display == null || string.IsNullOrEmpty(Display.GroupName) ? null : Display.GetGroupName(); }
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace EnumAnnotations
         /// </summary>
         public string Description
         {
-            get { return Display == null || string.IsNullOrEmpty(Display.Description) ? string.Empty : Display.GetDescription(); }
+            get { return Display == null || string.IsNullOrEmpty(Display.Description) ? null : Display.GetDescription(); }
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace EnumAnnotations
             get
             {
                 int? order = null;
-                if(Display != null)
+                if (Display != null)
                     order = Display.GetOrder();
-                return Display == null || !order.HasValue ? 0 : order.Value;
+                return Display == null || !order.HasValue ? default(int) : order.Value;
             }
         }
 
@@ -82,41 +82,25 @@ namespace EnumAnnotations
         }
 
         /// <summary>
-        /// Enum original value 
-        /// </summary>
-        public T EnumValue
-        {
-            get { return _enumValue; }
-        }
-
-        /// <summary>
         /// Enum Underlying numeric value casted to int
         /// </summary>
         public int UnderlyingValue
         {
-            get { return (int)Value; }
+            get
+            {
+                if (_enumValue == null)
+                    return default(int);
+                return (int)Value;
+            }
         }
 
         /// <summary>
         /// Wrap an Enum in a EnumAnnotation for more conviently accessing the Annotations Attributes (only the Display Attribute is supported) 
         /// </summary>
-        /// <param name="enumvalue">An Enum value of Type T</param>
-        public EnumAnnotation(T enumvalue)
+        /// <param name="enumValue">An Enum value</param>
+        public EnumAnnotation(Enum enumValue)
         {
-            _enumValue = enumvalue;
-        }
-
-        private DisplayAttribute GetDisplayAttribute()
-        {
-            Type type = typeof(T);
-            if (!type.IsEnum)
-                throw new NotSupportedException(type.FullName);
-            
-            string name = Enum.GetName(type, _enumValue);
-            
-            var field = type.GetField(name);
-
-            return field.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+            _enumValue = enumValue;
         }
 
         /// <summary>
@@ -124,37 +108,45 @@ namespace EnumAnnotations
         /// </summary>
         public override string ToString()
         {
-            return Value.ToString();
+            if (_enumValue == null)
+                return null;
+            return _enumValue.ToString();
         }
 
         public override bool Equals(object obj)
         {
-            return obj != null && Value.Equals(((EnumAnnotation<T>)obj).Value);
+            var compareObj = obj as EnumAnnotation;
+            if (compareObj == null || _enumValue == null)
+                return false;
+            return Value.Equals(compareObj._enumValue);    
         }
 
         public override int GetHashCode()
         {
             return Value.GetHashCode();
         }
-    }
 
-    /// <summary>
-    /// Static methods for getting EnumAnnotations
-    /// </summary>
-    public static class EnumAnnotation
-    {
+        private DisplayAttribute GetDisplayAttribute()
+        {
+            if(_enumValue == null)
+                return null;
+            Type type = _enumValue.GetType();
+            string name = Enum.GetName(type, _enumValue);
+            var field = type.GetField(name);
+            return field.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+        }
+
         /// <summary>
         /// Get a Sorted list of all the Display Attribute Annotations for the values in Enum Type of T. Usefull for datasources in databound controls. 
         /// </summary>
         /// <param name="predicate">Optional filter expression parameter for removing values</param>
         /// <returns>A sorted list of EnumAnnotations for Enum Type of T </returns>
-        public static List<IDisplayAnnotation> GetDisplays<T>(Func<EnumAnnotation<T>, bool> predicate = null) where T : struct
+        public static List<EnumAnnotation> GetDisplays<T>(Func<EnumAnnotation, bool> predicate = null) where T : struct
         {
             return Enum.GetValues(typeof(T))
-                .Cast<T>()
-                .Select(v => new EnumAnnotation<T>(v))
+                .Cast<Enum>()
+                .Select(v => new EnumAnnotation(v))
                 .Where(predicate ?? (x => true))
-                .Cast<IDisplayAnnotation>()
                 .OrderBy(a => a.Order)
                 .ToList();
         }
@@ -164,12 +156,9 @@ namespace EnumAnnotations
         /// </summary>
         /// <returns>A sorted list of EnumAnnotations for Enum Type of T </returns>
         /// <param name="args">Enum Type of T values</param>
-        public static List<IDisplayAnnotation> GetDisplays<T>(params T[] args) where T : struct 
+        public static List<EnumAnnotation> GetDisplays(params Enum[] args)
         {
-            return args
-                .Select(v => new EnumAnnotation<T>(v))
-                .Cast<IDisplayAnnotation>()
-                .ToList();
+            return args.Select(v => new EnumAnnotation(v)).ToList();
         }
 
         /// <summary>
@@ -177,43 +166,48 @@ namespace EnumAnnotations
         /// </summary>
         /// <param name="predicate">filter expression</param>
         /// <returns>EnumAnnotations for Enum Type of T or Null</returns>
-        public static IDisplayAnnotation FindDisplay<T>(Func<EnumAnnotation<T>, bool> predicate) where T : struct 
+        public static EnumAnnotation FindDisplay<T>(Func<EnumAnnotation, bool> predicate)
         {
             return Enum.GetValues(typeof(T))
-                .Cast<T>()
-                .Select(v => new EnumAnnotation<T>(v))
+                .Cast<Enum>()
+                .Select(v => new EnumAnnotation(v))
                 .SingleOrDefault(predicate);
         }
 
         /// <summary>
         /// Get a list of Enums
         /// </summary>
-        public static List<T> GetEnums<T>() where T : struct 
+        public static List<T> GetEnums<T>() where T : struct
         {
             return Enum.GetValues(typeof(T)).Cast<T>().ToList();
         }
+    }
 
+    /// <summary>
+    /// Static methods for getting EnumAnnotations
+    /// </summary>
+    public static class EnumAnnotationExtension
+    {
         /// <summary>
         /// Extension method which wraps a single enum value in an EnumAnnotation
         /// </summary>
         /// <param name="value">Enum value of Type of T</param>
-        /// <returns>IDisplayAnnotation for Enum Type of T</returns>
-        public static IDisplayAnnotation GetDisplay<T>(this T value) where T : struct
+        /// <returns>EnumAnnotation for Enum Type of T</returns>
+        public static EnumAnnotation GetDisplay(this Enum value)
         {
-            return new EnumAnnotation<T>(value);
+            return new EnumAnnotation(value);
         }
 
         /// <summary>
         /// Extension method which returns the DisplayAttributes Name value
         /// </summary>
         /// <param name="value">Enum value of Type of T</param>
-        /// <returns>IDisplayAnnotation for Enum Type of T</returns>
+        /// <returns>EnumAnnotation.Name for the Enum value</returns>
         public static string GetName(this Enum value)
         {
             if (value == null)
                 return null;
-            var displayAttribute = GetDisplayAttribute(value);
-            return displayAttribute != null ? displayAttribute.Name : value.ToString();
+            return new EnumAnnotation(value).Name;
         }
 
         /// <summary>
@@ -221,59 +215,10 @@ namespace EnumAnnotations
         /// </summary>
         /// <param name="value">Nullable Enum value of Type of T</param>
         /// <param name="defaultName">The name to use when this nullable value has no value</param>
-        /// <returns>IDisplayAnnotation for Enum Type of T</returns>
+        /// <returns>EnumAnnotation.Name or the defaultName for the Enum value</returns>
         public static string GetName(this Enum value, string defaultName)
         {
             return value == null ? defaultName : GetName(value);
         }
-
-        private static DisplayAttribute GetDisplayAttribute(Enum enumValue)
-        {
-            Type type = enumValue.GetType();
-            string name = Enum.GetName(type, enumValue);
-            var field = type.GetField(name);
-            return field.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
-        }
     }
-
-    /// <summary>
-    /// Wrapper around the System.ComponentModel.DataAnnotations.DisplayAttribute and Enum Properties
-    /// </summary>
-    public interface IDisplayAnnotation
-    {
-        /// <summary>
-        /// DisplayAttribute.Name annotation
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// DisplayAttribute.ShortName annotation
-        /// </summary>
-        string ShortName { get; }
-
-        /// <summary>
-        /// DisplayAttribute.GroupName annotation
-        /// </summary>
-        string GroupName { get; }
-
-        /// <summary>
-        /// DisplayAttribute.Description annotation
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
-        /// DisplayAttribute.Order annotation
-        /// </summary>
-        int Order { get; }
-
-        /// <summary>
-        /// Enum original value
-        /// </summary>
-        object Value { get; }
-
-        /// <summary>
-        /// Enum Underlying numeric value casted to int
-        /// </summary>
-        int UnderlyingValue { get; }
-    }
-}    
+}
