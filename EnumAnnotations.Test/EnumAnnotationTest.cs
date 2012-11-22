@@ -135,6 +135,26 @@ namespace EnumAnnotations.Test
         public void ExtensionGetName()
         {
             Assert.AreEqual("Fine Name", SomeStatus.Fine.GetName());
+            Assert.AreEqual("Fine", NotAnnotatedStatus.Fine.GetName());
+        }
+
+        [Test]
+        public void ExtensionGetNameNullable()
+        {
+            SomeStatus? status = SomeStatus.Fine;
+            SomeStatus? nullStatus = null;
+            NotAnnotatedStatus? notAnnotatedStatus = NotAnnotatedStatus.Good;
+            
+            Assert.AreEqual("Fine Name", status.GetName());
+            Assert.AreEqual("not found", nullStatus.GetName("not found"));
+            Assert.IsNull(nullStatus.GetName());
+            Assert.AreEqual("Good", notAnnotatedStatus.GetName());
+        }
+
+        [Test, ExpectedException(typeof(NotSupportedException), ExpectedMessage="System.Int32")]
+        public void NonEnumTypeThrowNotsupportedException()
+        {
+            string name = new EnumAnnotation<int>(3).Name;
         }
     }
 }

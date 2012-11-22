@@ -110,8 +110,8 @@ namespace EnumAnnotations
         {
             Type type = typeof(T);
             if (!type.IsEnum)
-                throw new NotSupportedException();
-
+                throw new NotSupportedException(type.FullName);
+            
             string name = Enum.GetName(type, _enumValue);
             
             var field = type.GetField(name);
@@ -208,9 +208,31 @@ namespace EnumAnnotations
         /// </summary>
         /// <param name="value">Enum value of Type of T</param>
         /// <returns>IDisplayAnnotation for Enum Type of T</returns>
-        public static string GetName<T>(this T value) where T : struct
+        public static string GetName(this Enum value)
         {
-            return GetDisplay(value).Name;
+            if (value == null)
+                return null;
+            var displayAttribute = GetDisplayAttribute(value);
+            return displayAttribute != null ? displayAttribute.Name : value.ToString();
+        }
+
+        /// <summary>
+        /// Extension method which returns the DisplayAttributes Name value or the the defaultName if the Enum value is null
+        /// </summary>
+        /// <param name="value">Nullable Enum value of Type of T</param>
+        /// <param name="defaultName">The name to use when this nullable value has no value</param>
+        /// <returns>IDisplayAnnotation for Enum Type of T</returns>
+        public static string GetName(this Enum value, string defaultName)
+        {
+            return value == null ? defaultName : GetName(value);
+        }
+
+        private static DisplayAttribute GetDisplayAttribute(Enum enumValue)
+        {
+            Type type = enumValue.GetType();
+            string name = Enum.GetName(type, enumValue);
+            var field = type.GetField(name);
+            return field.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
         }
     }
 
