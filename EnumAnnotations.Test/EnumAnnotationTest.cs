@@ -44,6 +44,13 @@ namespace EnumAnnotations.Test
             Assert.IsTrue(enumValues.SequenceEqual(displayAnnotations.Select(x => x.UnderlyingValue)));
         }
 
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void GetDisplaysWitNonEnum()
+        {
+            List<EnumAnnotation> enumAnnotations = EnumAnnotation.GetDisplays<int>();
+            Assert.IsTrue(enumAnnotations.Any());
+        }
+
         [Test]
         public void GetDisplaysByParamsIgnoresOrdering()
         {
@@ -97,7 +104,6 @@ namespace EnumAnnotations.Test
             Assert.AreEqual(1, (int)displayAnnotation.Value);
 
             Assert.AreEqual("Fine", displayAnnotation.Name);
-            Assert.AreEqual("Fine", displayAnnotation.ShortName);
             Assert.AreEqual("Fine", displayAnnotation.ToString());
 
             Assert.IsNull(displayAnnotation.Description);
@@ -148,7 +154,7 @@ namespace EnumAnnotations.Test
             Assert.AreEqual("Fine Name", status.GetName());
             Assert.IsNull(nullStatus.GetName());
             Assert.AreEqual("not found", nullStatus.GetName("not found"));
-            Assert.IsNull(nullStatus.GetDisplay().Name);
+            Assert.AreEqual(string.Empty, nullStatus.GetDisplay().Name);
             Assert.AreEqual("Good", notAnnotatedStatus.GetName());
         }
 
@@ -156,14 +162,36 @@ namespace EnumAnnotations.Test
         public void EnumAnnotationNull()
         {
             EnumAnnotation nullAnnotation = new EnumAnnotation(null);
-            Assert.IsNull(nullAnnotation.Name);
+            Assert.AreEqual(string.Empty, nullAnnotation.Name);
             Assert.IsNull(nullAnnotation.ShortName);
             Assert.IsNull(nullAnnotation.GroupName);
             Assert.IsNull(nullAnnotation.Description);
             Assert.IsNull(nullAnnotation.Value);
             Assert.AreEqual(0, nullAnnotation.Order);
             Assert.AreEqual(0, nullAnnotation.UnderlyingValue);
-            Assert.IsNull(nullAnnotation.ToString());
+            Assert.AreEqual(string.Empty, nullAnnotation.ToString());
+        }
+
+        [Test]
+        public void GetDisplaysForDifferentTypes()
+        {
+            var annotations = EnumAnnotation.GetDisplays(SomeStatus.Good, OrderedStatus.Fine);
+            Assert.AreEqual(annotations[0].Value, SomeStatus.Good);
+            Assert.AreEqual(annotations[1].Value, OrderedStatus.Fine);
+        }
+
+        [Test]
+        public void FlaggedEnum()
+        {
+            FlaggedStatus flaggedStatus = FlaggedStatus.Fine | FlaggedStatus.Good;
+            var flaggedAnnotation = new EnumAnnotation(flaggedStatus);
+
+            Assert.AreEqual("Fine, Good", flaggedAnnotation.Name);
+            Assert.AreEqual("Fine, Good", flaggedAnnotation.ToString());
+            Assert.IsTrue(flaggedStatus.HasFlag(FlaggedStatus.Good));
+            Assert.IsTrue(flaggedStatus.HasFlag(FlaggedStatus.Good | FlaggedStatus.Fine));
+            Assert.IsFalse(flaggedStatus.HasFlag(FlaggedStatus.Ok));
+            Assert.IsFalse(flaggedStatus.HasFlag(FlaggedStatus.Good | FlaggedStatus.Ok));
         }
     }
 }

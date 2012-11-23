@@ -52,6 +52,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\FlaggedStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Data\SomeStatus.cs" />
     <Compile Include="Data\NotAnnotatedStatus.cs" />
     <Compile Include="Data\LocalizedStatus.cs" />

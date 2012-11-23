@@ -40,7 +40,7 @@ namespace EnumAnnotations
         /// </summary>
         public string ShortName
         {
-            get { return Display == null || string.IsNullOrEmpty(Display.ShortName) ? ToString() : Display.GetShortName(); }
+            get { return Display == null || string.IsNullOrEmpty(Display.ShortName) ? null : Display.GetShortName(); }
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace EnumAnnotations
         public override string ToString()
         {
             if (_enumValue == null)
-                return null;
+                return string.Empty;
             return _enumValue.ToString();
         }
 
@@ -132,6 +132,8 @@ namespace EnumAnnotations
                 return null;
             Type type = _enumValue.GetType();
             string name = Enum.GetName(type, _enumValue);
+            if(name == null)
+                return null;
             var field = type.GetField(name);
             return field.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
         }
@@ -144,7 +146,7 @@ namespace EnumAnnotations
         public static List<EnumAnnotation> GetDisplays<T>(Func<EnumAnnotation, bool> predicate = null) where T : struct
         {
             return Enum.GetValues(typeof(T))
-                .Cast<Enum>()
+                .OfType<Enum>()
                 .Select(v => new EnumAnnotation(v))
                 .Where(predicate ?? (x => true))
                 .OrderBy(a => a.Order)
@@ -169,7 +171,7 @@ namespace EnumAnnotations
         public static EnumAnnotation FindDisplay<T>(Func<EnumAnnotation, bool> predicate)
         {
             return Enum.GetValues(typeof(T))
-                .Cast<Enum>()
+                .OfType<Enum>()
                 .Select(v => new EnumAnnotation(v))
                 .SingleOrDefault(predicate);
         }
@@ -179,12 +181,12 @@ namespace EnumAnnotations
         /// </summary>
         public static List<T> GetEnums<T>() where T : struct
         {
-            return Enum.GetValues(typeof(T)).Cast<T>().ToList();
+            return Enum.GetValues(typeof(T)).OfType<T>().ToList();
         }
     }
 
     /// <summary>
-    /// Static methods for getting EnumAnnotations
+    /// Static Extension methods for getting DisplayAttribute values
     /// </summary>
     public static class EnumAnnotationExtension
     {
