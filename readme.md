@@ -1,5 +1,9 @@
 EnumAnnotation DisplayAttribute 
 ==========
+
+[![Build status](https://ci.appveyor.com/api/projects/status/tl14tk8aag6fr5q4)](https://ci.appveyor.com/project/aadje/enumannotation)  
+
+
 Enum wrapper for more conviently accessing the Display DataAnnotation Attribute on an Enum
 
 1. Use by copy pasting [EnumAnnotation.cs](https://raw.github.com/aadje/EnumAnnotation/master/EnumAnnotations/EnumAnnotation.cs) into your project, and change how you like
