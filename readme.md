@@ -6,7 +6,7 @@ EnumAnnotation DisplayAttribute
 
 Enum wrapper for more conviently accessing the Display DataAnnotation Attribute on an Enum
 
-1. Use by copy pasting [EnumAnnotation.cs](https://raw.github.com/aadje/EnumAnnotation/master/EnumAnnotations/EnumAnnotation.cs) into your project, and change how you like
+1. Use by copy-pasting [EnumAnnotation.cs](https://raw.github.com/aadje/EnumAnnotation/master/EnumAnnotations/EnumAnnotation.cs) into your project, and modify as you see fit
 2. Or reference the assembly using Nuget [```Install-Package EnumAnnotation```](https://nuget.org/packages/EnumAnnotation)   
 
 * Use the in .net 4 added [```System.ComponentModel.DataAnnotations.DisplayAnnotation```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.aspx) to add friendly names to your [Enum](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/SomeStatus.cs)
