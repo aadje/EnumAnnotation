@@ -11,7 +11,8 @@ Enum wrapper for more conviently accessing the Display DataAnnotation Attribute 
 
 * Use the in .net 4 added [```System.ComponentModel.DataAnnotations.DisplayAnnotation```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.aspx) to add friendly names to your [Enum](https://github.com/aadje/EnumAnnotation/blob/master/EnumAnnotations.Test/Data/SomeStatus.cs)
 * Generate Lists with enum names and values to bind in your UI, using ```EnumAnnotation.GetDisplays<SomeStatus>();```  
-Filter these Lists by supplying the enum values explicitly ```EnumAnnotation.GetDisplays(SomeStatus.Fine, SomeStatus.Ok);```  
+Filter these Lists by supplying the enum values explicitly  
+```EnumAnnotation.GetDisplays(SomeStatus.Fine, SomeStatus.Ok);```  
 or using a lambda predicate function   
 ```EnumAnnotation.GetDisplays<SomeStatus>(a => a.Name != "Fine");```
 * Add multiple names to your Enums using the DisplayAnnotations [```Name```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.name.aspx), [```ShortName```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.shortname.aspx), [```Desciption```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.description.aspx) and [```GroupName```](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayattribute.groupname.aspx) properties
